@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,18 +7,19 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Tile(),
+      home: Tile(),
     );
   }
 }
@@ -25,6 +28,7 @@ class Tile extends StatefulWidget {
   const Tile({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TileState createState() => _TileState();
 }
 
@@ -38,8 +42,49 @@ class _TileState extends State<Tile> {
     });
   }
 
+  final List<Map<String, String>> _cars = [
+    {
+      "image": "https://lionmotors.uz/wp-content/uploads/2020/11/cobalt3.jpg",
+      "name": "Chevrolet Cobalt 2024",
+      "price": "133 598 000 сум"
+    },
+    {
+      "image": "https://car24.uz/wp-content/uploads/2024/01/22.webp",
+      "name": "Chevrolet Lacetti Gentra 2024",
+      "price": "143 634 000 сум"
+    },
+    {
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoaZzamHzH0LyHpEjbSMgtknr9mOysfz-VLON_Q6GBJHxXICnE3hMXQwOADzmuKIo-5DM&usqp=CAU",
+      "name": "Chevrolet Malibu 2024",
+      "price": "419 000 960 сум"
+    },
+    {
+      "image":
+          "https://biznesrivoj-images.s3.eu-north-1.amazonaws.com/n5_ad2843b13c.jpg",
+      "name": "Chevrolet Tracker 2024",
+      "price": "285 834 080 сум"
+    },
+    {
+      "image":
+          "https://daryo.uz/cache/2015/06/339_26_model_gallery_original-680x493-680x493.jpg",
+      "name": "Chevrolet Matiz 2024",
+      "price": "20 000 000 сум"
+    },
+    {
+      "image":
+          "https://cdn.kia-motors.uz/uz/uploads/articles/1736/article-original.png",
+      "name": "Chevrolet KIA 2024",
+      "price": "317 900 000 сум"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> _filteredCars = _cars
+        .where((car) =>
+            car["name"]!.toLowerCase().contains(_searchIndex.toLowerCase()))
+        .toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('We found more 1000 news'),
@@ -93,92 +138,21 @@ class _TileState extends State<Tile> {
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,
-              children: [
-                Card(
+              children: _filteredCars.map((car) {
+                return Card(
                   color: Colors.grey.shade300,
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        Image.network(
-                            "https://lionmotors.uz/wp-content/uploads/2020/11/cobalt3.jpg"),
-                        const Text("Chevrolet Cobalt 2024"),
-                        const Text("133 598 000 сум")
+                        Image.network(car["image"]!),
+                        Text(car["name"]!),
+                        Text(car["price"]!)
                       ],
                     ),
                   ),
-                ),
-                Card(
-                  color: Colors.grey.shade300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Image.network(
-                            "https://car24.uz/wp-content/uploads/2024/01/22.webp"),
-                        const Text("Chevrolet Lacetti Gentra 2024"),
-                        const Text("143 634 000 сум")
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey.shade300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Image.network(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoaZzamHzH0LyHpEjbSMgtknr9mOysfz-VLON_Q6GBJHxXICnE3hMXQwOADzmuKIo-5DM&usqp=CAU"),
-                        const Text("Chevrolet Malibu 2024"),
-                        const Text("419 000 960 сум")
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey.shade300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Image.network(
-                            "https://biznesrivoj-images.s3.eu-north-1.amazonaws.com/n5_ad2843b13c.jpg"),
-                        const Text("Chevrolet Tracker 2024"),
-                        const Text("285 834 080 сум")
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey.shade300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Image.network(
-                            "https://daryo.uz/cache/2015/06/339_26_model_gallery_original-680x493-680x493.jpg"),
-                        const Text("Chevrolet Matiz 2024"),
-                        const Text("20 000 000 сум")
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey.shade300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Image.network(
-                            "https://cdn.kia-motors.uz/uz/uploads/articles/1736/article-original.png"),
-                        const Text("Chevrolet KIA 2024"),
-                        const Text("317 900 000 сум")
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                );
+              }).toList(),
             ),
           ),
         ],
@@ -223,6 +197,7 @@ class list extends StatefulWidget {
   const list({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _listState createState() => _listState();
 }
 
@@ -236,8 +211,49 @@ class _listState extends State<list> {
     });
   }
 
+  final List<Map<String, String>> _cars = [
+    {
+      "image": "https://lionmotors.uz/wp-content/uploads/2020/11/cobalt3.jpg",
+      "name": "Chevrolet Cobalt 2024",
+      "price": "133 598 000 сум"
+    },
+    {
+      "image": "https://car24.uz/wp-content/uploads/2024/01/22.webp",
+      "name": "Chevrolet Lacetti Gentra 2024",
+      "price": "143 634 000 сум"
+    },
+    {
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoaZzamHzH0LyHpEjbSMgtknr9mOysfz-VLON_Q6GBJHxXICnE3hMXQwOADzmuKIo-5DM&usqp=CAU",
+      "name": "Chevrolet Malibu 2024",
+      "price": "419 000 960 сум"
+    },
+    {
+      "image":
+          "https://biznesrivoj-images.s3.eu-north-1.amazonaws.com/n5_ad2843b13c.jpg",
+      "name": "Chevrolet Tracker 2024",
+      "price": "285 834 080 сум"
+    },
+    {
+      "image":
+          "https://daryo.uz/cache/2015/06/339_26_model_gallery_original-680x493-680x493.jpg",
+      "name": "Chevrolet Matiz 2024",
+      "price": "20 000 000 сум"
+    },
+    {
+      "image":
+          "https://cdn.kia-motors.uz/uz/uploads/articles/1736/article-original.png",
+      "name": "Chevrolet KIA 2024",
+      "price": "317 900 000 сум"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> _filteredCars = _cars
+        .where((car) =>
+            car["name"]!.toLowerCase().contains(_searchIndex.toLowerCase()))
+        .toList();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -255,8 +271,10 @@ class _listState extends State<list> {
                     child: const Text("tile"),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => list()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const list()));
                     },
                   ),
                   PopupMenuItem(
@@ -267,8 +285,10 @@ class _listState extends State<list> {
                     child: const Text("gallary"),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Group()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Group()));
                     },
                   ),
                 ];
@@ -278,9 +298,7 @@ class _listState extends State<list> {
         ),
         body: Column(
           children: [
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             TextField(
               onChanged: (value) => setState(() {
                 _searchIndex = value;
@@ -293,105 +311,23 @@ class _listState extends State<list> {
               ),
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  Card(
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: _filteredCars.map((car) {
+                  return Card(
                     color: Colors.grey.shade300,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         children: [
-                          Image.network(
-                              "https://lionmotors.uz/wp-content/uploads/2020/11/cobalt3.jpg"),
-                          const Text(
-                            "Chevrolet Cobalt 2024",
-                          ),
-                          const Text("133 598 000 сум")
+                          Image.network(car["image"]!),
+                          Text(car["name"]!),
+                          Text(car["price"]!)
                         ],
                       ),
                     ),
-                  ),
-                  Card(
-                    color: Colors.grey.shade300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Image.network(
-                              "https://car24.uz/wp-content/uploads/2024/01/22.webp"),
-                          const Text(
-                            "Chevrolet Lacetti Gentra 2024",
-                          ),
-                          const Text("143 634 000 сум")
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    color: Colors.grey.shade300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Image.network(
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoaZzamHzH0LyHpEjbSMgtknr9mOysfz-VLON_Q6GBJHxXICnE3hMXQwOADzmuKIo-5DM&usqp=CAU"),
-                          const Text(
-                            "Chevrolet Malibu 2024",
-                          ),
-                          const Text("419 000 960 сум")
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    color: Colors.grey.shade300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Image.network(
-                              "https://biznesrivoj-images.s3.eu-north-1.amazonaws.com/n5_ad2843b13c.jpg"),
-                          const Text(
-                            "Chevrolet Tracker 2024",
-                          ),
-                          const Text("285 834 080 сум")
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    color: Colors.grey.shade300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Image.network(
-                              "https://daryo.uz/cache/2015/06/339_26_model_gallery_original-680x493-680x493.jpg"),
-                          const Text(
-                            "Chevrolet Matiz 2024",
-                          ),
-                          const Text("20 000 000 сум")
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    color: Colors.grey.shade300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Image.network(
-                              "https://cdn.kia-motors.uz/uz/uploads/articles/1736/article-original.png"),
-                          const Text(
-                            "Chevrolet KIA 2024",
-                          ),
-                          const Text("317 900 000 сум")
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -449,6 +385,7 @@ class Group extends StatefulWidget {
   const Group({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _GroupState createState() => _GroupState();
 }
 
@@ -462,8 +399,49 @@ class _GroupState extends State<Group> {
     });
   }
 
+  final List<Map<String, String>> _cars = [
+    {
+      "image": "https://lionmotors.uz/wp-content/uploads/2020/11/cobalt3.jpg",
+      "name": "Chevrolet Cobalt 2024",
+      "price": "133 598 000 сум"
+    },
+    {
+      "image": "https://car24.uz/wp-content/uploads/2024/01/22.webp",
+      "name": "Chevrolet Lacetti Gentra 2024",
+      "price": "143 634 000 сум"
+    },
+    {
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoaZzamHzH0LyHpEjbSMgtknr9mOysfz-VLON_Q6GBJHxXICnE3hMXQwOADzmuKIo-5DM&usqp=CAU",
+      "name": "Chevrolet Malibu 2024",
+      "price": "419 000 960 сум"
+    },
+    {
+      "image":
+          "https://biznesrivoj-images.s3.eu-north-1.amazonaws.com/n5_ad2843b13c.jpg",
+      "name": "Chevrolet Tracker 2024",
+      "price": "285 834 080 сум"
+    },
+    {
+      "image":
+          "https://daryo.uz/cache/2015/06/339_26_model_gallery_original-680x493-680x493.jpg",
+      "name": "Chevrolet Matiz 2024",
+      "price": "20 000 000 сум"
+    },
+    {
+      "image":
+          "https://cdn.kia-motors.uz/uz/uploads/articles/1736/article-original.png",
+      "name": "Chevrolet KIA 2024",
+      "price": "317 900 000 сум"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> _filteredCars = _cars
+        .where((car) =>
+            car["name"]!.toLowerCase().contains(_searchIndex.toLowerCase()))
+        .toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('We found more 1000 news'),
@@ -515,43 +493,24 @@ class _GroupState extends State<Group> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 500,
+            Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildCard(
-                    "https://lionmotors.uz/wp-content/uploads/2020/11/cobalt3.jpg",
-                    "Chevrolet Cobalt 2024",
-                    "133 598 000 сум",
-                  ),
-                  _buildCard(
-                    "https://car24.uz/wp-content/uploads/2024/01/22.webp",
-                    "Chevrolet Lacetti Gentra 2024",
-                    "143 634 000 сум",
-                  ),
-                  _buildCard(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoaZzamHzH0LyHpEjbSMgtknr9mOysfz-VLON_Q6GBJHxXICnE3hMXQwOADzmuKIo-5DM&usqp=CAU",
-                    "Chevrolet Malibu 2024",
-                    "419 000 960 сум",
-                  ),
-                  _buildCard(
-                    "https://biznesrivoj-images.s3.eu-north-1.amazonaws.com/n5_ad2843b13c.jpg",
-                    "Chevrolet Tracker 2024",
-                    "285 834 080 сум",
-                  ),
-                  _buildCard(
-                    "https://daryo.uz/cache/2015/06/339_26_model_gallery_original-680x493-680x493.jpg",
-                    "Chevrolet Matiz 2024",
-                    "20 000 000 сум",
-                  ),
-                  _buildCard(
-                    "https://cdn.kia-motors.uz/uz/uploads/articles/1736/article-original.png",
-                    "Chevrolet KIA 2024",
-                    "317 900 000 сум",
-                  ),
-                ],
+                children: _filteredCars.map((car) {
+                  return Card(
+                    color: Colors.grey.shade300,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          Image.network(car["image"]!),
+                          Text(car["name"]!),
+                          Text(car["price"]!)
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -588,32 +547,6 @@ class _GroupState extends State<Group> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-
-  Widget _buildCard(String imageUrl, String title, String price) {
-    return Card(
-      color: Colors.grey.shade300,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Image.network(
-              imageUrl,
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 5),
-            Text(price),
-          ],
-        ),
       ),
     );
   }
